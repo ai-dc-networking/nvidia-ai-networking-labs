@@ -5,7 +5,7 @@
 
 A dedicated repository for mastering **NVIDIA Spectrum Ethernet (Cumulus Linux / NVUE)**, **NVIDIA Quantum InfiniBand (UFM / OpenSM)**, and **Lossless AI Fabrics (RoCEv2 / PFC / ECN)**.
 
-Targeting expert-level mastery and the **NVIDIA Certified Professional: AI Networking (NCP AIN)** certification.
+Targeting expert-level mastery and the **NVIDIA Certified Professional: AI Networking (NCP-AIN)** certification.
 
 ---
 
@@ -14,7 +14,7 @@ Targeting expert-level mastery and the **NVIDIA Certified Professional: AI Netwo
 ```text
 nvidia-ai-networking-labs/
 ├── .github/workflows/   # CI/CD pipelines
-├── docs/                # NCP AIN study guides & architecture notes
+├── docs/                # NCP-AIN study guides & architecture notes
 ├── labs/                # Sequential hands-on scenarios
 ├── automation/          # Ansible playbooks & NVUE REST API scripts
 └── templates/           # Reusable NVUE YAML configurations
