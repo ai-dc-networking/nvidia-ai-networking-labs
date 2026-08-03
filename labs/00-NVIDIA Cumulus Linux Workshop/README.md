@@ -1,20 +1,20 @@
 **Lab 1: Verifying Lab Connectivity & Setup**
 
 **Lab 2: Interface Configuration:**
-Configure Loopbacks
-Bonds
-Bridge and Access Ports
-SVI and VRR, test connectivity
-Verify MAC learned
+* Configure Loopbacks
+* Bonds
+* Bridge and Access Ports
+* SVI and VRR, test connectivity
+* Verify MAC learned
 
 **Lab 3: BGP Unnumbered and VRF-lite Configuration**
-*Configure BGP Unnumbered*
-Advertise Loopback and SVI Subnets
-Quick Verify Connectivity with Servers
+**Configure BGP Unnumbered**
+* Advertise Loopback and SVI Subnets
+* Quick Verify Connectivity with Servers
 
-*VRF & Member Interfaces*
-VRF BGP Configuration
-Verify Routing Table
-Verify Connectivity
+**VRF & Member Interfaces**
+* VRF BGP Configuration
+* Verify Routing Table
+* Verify Connectivity
 
 Appendix A: Enable SSH In Your Lab
