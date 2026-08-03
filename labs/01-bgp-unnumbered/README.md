@@ -1,3 +1,7 @@
+## 📐 Topology Diagram
+
+![Lab 01 Topology](topology.png)
+
 **Quick Starter Checklist: Lab 01-bgp-unnumbered**
 
 * Define switch hostnames, vlans, trunks, portBonds and loopbacks (nv set system hostname ...).
