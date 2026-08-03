@@ -1,10 +1,10 @@
 **Quick Starter Checklist: Lab 01-bgp-unnumbered**
 
-[ ] Define switch hostnames, vlans, trunks, portBonds and loopbacks (nv set system hostname ...).
-[ ] Configure BGP Autonomous System numbers (nv set vrf default router bgp autonomous-system ...)[cite: 1, 2].
-[ ] Set up BGP Unnumbered interface peering (nv set vrf default router bgp neighbor <interface> remote-as external)[cite: 1, 2].
-[ ] Validate operational state (nv show vrf default router bgp neighbor) within 15 minutes[cite: 2].
-[ ] Export configuration to /labs/01-bgp-unnumbered/configs/[cite: 2].
+* Define switch hostnames, vlans, trunks, portBonds and loopbacks (nv set system hostname ...).
+* Configure BGP Autonomous System numbers (nv set vrf default router bgp autonomous-system ...)[cite: 1, 2].
+* Set up BGP Unnumbered interface peering (nv set vrf default router bgp neighbor <interface> remote-as external)[cite: 1, 2].
+* Validate operational state (nv show vrf default router bgp neighbor) within 15 minutes[cite: 2].
+* Export configuration to /labs/01-bgp-unnumbered/configs/[cite: 2].
 
 
 # 🧪 Lab 01: BGP Unnumbered & Underlay Fabric
