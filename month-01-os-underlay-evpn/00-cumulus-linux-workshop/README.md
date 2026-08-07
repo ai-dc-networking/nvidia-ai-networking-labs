@@ -1,5 +1,5 @@
-# Lab 1: Verifying Lab Connectivity & Setup**
-# Lab 2: Interface Configuration & Inter-VLAN Routing:**
+** Lab 1: Verifying Lab Connectivity & Setup**
+# Lab 2: Interface Configuration & Inter-VLAN Routing:
 
 ## Overview
 This lab demonstrates core interface configuration, L2/L3 boundaries, VRR, and Inter-VLAN routing on Cumulus Linux using NVUE.
