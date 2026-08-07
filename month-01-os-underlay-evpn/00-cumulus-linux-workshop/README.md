@@ -4,7 +4,7 @@
 ## Overview
 This lab demonstrates core interface configuration, L2/L3 boundaries, VRR, and Inter-VLAN routing on Cumulus Linux using NVUE.
 
-# Key Tasks Completed
+Key Tasks Completed
 * Hostname and Loopback address assignment
 * Bond/LAG configuration for switch interconnects
 * Bridge domain setup with Access/Trunk ports
