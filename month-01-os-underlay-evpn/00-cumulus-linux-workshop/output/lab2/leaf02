@@ -1,0 +1,164 @@
+cumulus@leaf02:mgmt:~$ nv show system brief
+                   operational          applied
+-----------------  -------------------  -------
+uptime             1:49:57                     
+hostname           leaf02               leaf02 
+fqdn               leaf02                      
+product-name       Cumulus Linux               
+contact                                        
+location                                       
+dns                                            
+  domain                                       
+date-time                                      
+  local-time       2026-08-07 23:10:01         
+  timezone         Etc/UTC              Etc/UTC
+health                                         
+  status           Not OK                      
+version                                        
+  product-release  5.16.1                      
+global                                         
+  system-mac       48:b0:2d:00:04:dd    auto   
+  anycast-mac      none                 none   
+cumulus@leaf02:mgmt:~$ nv show interface lo link 
+                         operational        applied
+-----------------------  -----------------  -------
+admin-status             up                        
+oper-status              unknown                   
+oper-status-last-change  Never                     
+protodown                disabled                  
+mac-address              00:00:00:00:00:00         
+mtu                      65536                     
+[flag]                   loopback                  
+[flag]                   up                        
+[flag]                   lower-up                  
+state                    up                        
+cumulus@leaf02:mgmt:~$ nv show interface lo ipv4 address
+IPv4 Address     Address type
+---------------  ------------
+10.255.255.2/32  primary     
+127.0.0.1/8      primary     
+cumulus@leaf02:mgmt:~$ nv show interface bond0 bond
+             operational  applied 
+-----------  -----------  --------
+down-delay   0            0       
+lacp-bypass  off          disabled
+lacp-rate    fast         fast    
+mode         lacp         lacp    
+up-delay     0            0       
+[member]     swp31        swp31   
+[member]     swp32        swp32   
+mlag                              
+  state                   disabled
+cumulus@leaf02:mgmt:~$ nv show bridge domain br_default
+Bridge info: 
+    mac-address         : 48:b0:2d:00:04:dd
+    type                : vlan-aware
+    encap               : 802.1Q
+    ageing              : 1800
+    stp mode            : rstp
+    vlan-vni-offset     : 0
+
+Bridge Vlan Info :
+untagged      tagged                                            
+------------- ---------------------------------------------------
+1             10,20
+
+Bridge Port Info:
+Port           State           
+-------------- --------------- 
+bond0          forwarding      
+swp2           forwarding      
+
+cumulus@leaf02:mgmt:~$ nv show interface swp1 bridge domain br_default
+Error: The requested item does not exist.
+cumulus@leaf02:mgmt:~$ nv show interface swp2 bridge domain br_default
+               operational  applied 
+-------------  -----------  --------
+learning       enabled      enabled 
+access         20           20      
+stp                                 
+  bpdu-filter  disabled     disabled
+  bpdu-guard   disabled     disabled
+  admin-edge   disabled     disabled
+  auto-edge    enabled      enabled 
+  network      disabled     disabled
+  restrrole    disabled     disabled
+  path-cost    20000                
+  [vlan]                            
+  state        forwarding           
+cumulus@leaf02:mgmt:~$ nv show interface vlan10 ipv4 address
+IPv4 Address  Address type
+------------  ------------
+10.0.10.3/24  primary     
+cumulus@leaf02:mgmt:~$ nv show interface vlan20 ipv4 address
+IPv4 Address  Address type
+------------  ------------
+10.0.20.3/24  primary     
+cumulus@leaf02:mgmt:~$ nv show interface vlan10 ipv4 vrr
+             operational        applied          
+-----------  -----------------  -----------------
+state                           enabled          
+mac-id                          none             
+mac-address  00:00:00:00:1a:10  00:00:00:00:1a:10
+[address]    10.0.10.1/24       10.0.10.1/24     
+vrr-state    up                 up               
+cumulus@leaf02:mgmt:~$ nv show interface vlan20 ipv4 vrr
+             operational        applied          
+-----------  -----------------  -----------------
+state                           enabled          
+mac-id                          none             
+mac-address  00:00:00:00:2a:20  00:00:00:00:2a:20
+[address]    10.0.20.1/24       10.0.20.1/24     
+vrr-state    up                 up               
+cumulus@leaf02:mgmt:~$ nv show bridge domain br_default mac
+entry-id  MAC address        vlan  interface   remote-dst  src-vni  entry-type  last-update  age    
+--------  -----------------  ----  ----------  ----------  -------  ----------  -----------  -------
+1         48:b0:2d:00:09:72  20    swp2                                         0:01:27      0:00:05
+2         48:b0:2d:00:04:ba        swp2                             permanent   1:19:39      1:19:39
+3         48:b0:2d:00:02:81  10    bond0                                        1:15:23      0:00:40
+4         48:b0:2d:00:07:19  10    bond0                                        1:15:23      0:01:27
+5         48:b0:2d:00:02:74  1     bond0                                        1:19:34      0:00:02
+6         48:b0:2d:00:02:81  20    bond0                                        0:02:10      0:01:27
+7         48:b0:2d:00:02:72  1     bond0                                        1:19:35      0:00:01
+8         48:b0:2d:00:04:ce  1     bond0                            permanent   1:19:39      1:19:39
+9         48:b0:2d:00:04:ce        bond0                            permanent   1:19:39      1:19:39
+10        00:00:00:00:1a:10        br_default                       permanent                       
+11        00:00:00:00:2a:20        br_default                       permanent                       
+12        00:00:00:00:2a:20  20    br_default                       permanent   1:19:39      1:19:39
+13        48:b0:2d:00:04:dd  20    br_default                       permanent   1:19:39      1:19:39
+14        00:00:00:00:1a:10  10    br_default                       permanent   1:19:39      1:19:39
+15        48:b0:2d:00:04:dd  10    br_default                       permanent   1:19:39      1:19:39
+16        48:b0:2d:00:04:dd  1     br_default                       permanent   1:19:39      1:19:39
+17        48:b0:2d:00:04:dd        br_default                       permanent   1:19:39      1:19:39
+cumulus@leaf02:mgmt:~$ ping -c 3 10.0.10.1
+vrf-wrapper.sh: switching to vrf "default"; use '--no-vrf-switch' to disable
+PING 10.0.10.1 (10.0.10.1) 56(84) bytes of data.
+64 bytes from 10.0.10.1: icmp_seq=1 ttl=64 time=0.037 ms
+64 bytes from 10.0.10.1: icmp_seq=2 ttl=64 time=0.043 ms
+64 bytes from 10.0.10.1: icmp_seq=3 ttl=64 time=0.044 ms
+
+--- 10.0.10.1 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2045ms
+rtt min/avg/max/mdev = 0.037/0.041/0.044/0.003 ms
+cumulus@leaf02:mgmt:~$ ping -c 3 10.0.20.1
+vrf-wrapper.sh: switching to vrf "default"; use '--no-vrf-switch' to disable
+PING 10.0.20.1 (10.0.20.1) 56(84) bytes of data.
+64 bytes from 10.0.20.1: icmp_seq=1 ttl=64 time=0.031 ms
+64 bytes from 10.0.20.1: icmp_seq=2 ttl=64 time=0.040 ms
+64 bytes from 10.0.20.1: icmp_seq=3 ttl=64 time=0.039 ms
+
+--- 10.0.20.1 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2034ms
+rtt min/avg/max/mdev = 0.031/0.036/0.040/0.004 ms
+cumulus@leaf02:mgmt:~$ nv show system date-time
+                           operational          applied
+-------------------------  -------------------  -------
+local-time                 2026-08-07 23:12:01         
+universal-time             2026-08-07 23:12:01         
+rtc-time                   2026-08-07 23:12:01         
+system-clock-synchronized  yes                         
+ntp-service                n/a                         
+rtc-in-local-tz            no                          
+timezone                   Etc/UTC              Etc/UTC
+unix-time                  1786144321.8178403          
+cumulus@leaf02:mgmt:~$ 

@@ -1,0 +1,190 @@
+cumulus@cumulus:mgmt:~$ nv show system brief
+                   operational          applied
+-----------------  -------------------  -------
+uptime             1:44:25                     
+hostname           leaf01               leaf01 
+fqdn               leaf01                      
+product-name       Cumulus Linux               
+contact                                        
+location                                       
+dns                                            
+  domain                                       
+date-time                                      
+  local-time       2026-08-07 23:04:30         
+  timezone         Etc/UTC              Etc/UTC
+health                                         
+  status           Not OK                      
+version                                        
+  product-release  5.16.1                      
+global                                         
+  system-mac       48:b0:2d:00:02:81    auto   
+  anycast-mac      none                 none   
+cumulus@cumulus:mgmt:~$ nv show interface lo link
+                         operational        applied
+-----------------------  -----------------  -------
+admin-status             up                        
+oper-status              unknown                   
+oper-status-last-change  Never                     
+protodown                disabled                  
+mac-address              00:00:00:00:00:00         
+mtu                      65536                     
+[flag]                   loopback                  
+[flag]                   up                        
+[flag]                   lower-up                  
+state                    up                        
+cumulus@cumulus:mgmt:~$ nv show interface lo ipv4 address
+IPv4 Address     Address type
+---------------  ------------
+10.255.255.1/32  primary     
+127.0.0.1/8      primary     
+cumulus@cumulus:mgmt:~$ nv show interface bond0 bond
+             operational  applied 
+-----------  -----------  --------
+down-delay   0            0       
+lacp-bypass  off          disabled
+lacp-rate    fast         fast    
+mode         lacp         lacp    
+up-delay     0            0       
+[member]     swp31        swp31   
+[member]     swp32        swp32   
+mlag                              
+  state                   disabled
+cumulus@cumulus:mgmt:~$ nv show bridge domain br_default
+Bridge info: 
+    mac-address         : 48:b0:2d:00:02:81
+    type                : vlan-aware
+    encap               : 802.1Q
+    ageing              : 1800
+    stp mode            : rstp
+    vlan-vni-offset     : 0
+
+Bridge Vlan Info :
+untagged      tagged                                            
+------------- ---------------------------------------------------
+1             10,20
+
+Bridge Port Info:
+Port           State           
+-------------- --------------- 
+bond0          forwarding      
+swp1           forwarding      
+
+cumulus@cumulus:mgmt:~$ nv show interface swp1 bridge domain br_default
+               operational  applied 
+-------------  -----------  --------
+learning       enabled      enabled 
+access         10           10      
+stp                                 
+  bpdu-filter  disabled     disabled
+  bpdu-guard   disabled     disabled
+  admin-edge   disabled     disabled
+  auto-edge    enabled      enabled 
+  network      disabled     disabled
+  restrrole    disabled     disabled
+  path-cost    20000                
+  [vlan]                            
+  state        forwarding           
+cumulus@cumulus:mgmt:~$ nv show interface vlan10 ipv4 address 
+IPv4 Address  Address type
+------------  ------------
+10.0.10.2/24  primary     
+cumulus@cumulus:mgmt:~$ nv show interface vlan10 ipv4 vrr
+             operational        applied          
+-----------  -----------------  -----------------
+state                           enabled          
+mac-id                          none             
+mac-address  00:00:00:00:1a:10  00:00:00:00:1a:10
+[address]    10.0.10.1/24       10.0.10.1/24     
+vrr-state    up                 up               
+cumulus@cumulus:mgmt:~$ nv show bridge domain br_default mac
+entry-id  MAC address        vlan  interface   remote-dst  src-vni  entry-type  last-update  age    
+--------  -----------------  ----  ----------  ----------  -------  ----------  -----------  -------
+1         48:b0:2d:00:07:19  10    swp1                                         0:01:15      0:00:07
+2         48:b0:2d:00:02:61        swp1                             permanent   1:26:11      1:26:11
+3         48:b0:2d:00:09:72  20    bond0                                        1:01:25      0:00:28
+4         48:b0:2d:00:04:ce  1     bond0                                        1:13:22      0:00:20
+5         48:b0:2d:00:04:d0  1     bond0                                        1:13:22      0:00:20
+6         48:b0:2d:00:04:dd  20    bond0                                        1:13:22      0:00:30
+7         48:b0:2d:00:04:dd  10    bond0                                        0:02:00      0:02:00
+8         48:b0:2d:00:02:72  1     bond0                            permanent   1:26:11      1:26:11
+9         48:b0:2d:00:02:72        bond0                            permanent   1:26:11      1:26:11
+10        00:00:00:00:1a:10        br_default                       permanent                       
+11        00:00:00:00:2a:20        br_default                       permanent                       
+12        00:00:00:00:2a:20  20    br_default                       permanent   1:26:11      1:26:11
+13        48:b0:2d:00:02:81  20    br_default                       permanent   1:26:11      1:26:11
+14        00:00:00:00:1a:10  10    br_default                       permanent   1:26:11      1:26:11
+15        48:b0:2d:00:02:81  10    br_default                       permanent   1:26:11      1:26:11
+16        48:b0:2d:00:02:81  1     br_default                       permanent   1:26:11      1:26:11
+17        48:b0:2d:00:02:81        br_default                       permanent   1:26:11      1:26:11
+cumulus@cumulus:mgmt:~$ nv show system date-time
+                           operational          applied
+-------------------------  -------------------  -------
+local-time                 2026-08-07 23:05:29         
+universal-time             2026-08-07 23:05:29         
+rtc-time                   2026-08-07 23:05:29         
+system-clock-synchronized  yes                         
+ntp-service                n/a                         
+rtc-in-local-tz            no                          
+timezone                   Etc/UTC              Etc/UTC
+unix-time                  1786143929.1819344          
+cumulus@cumulus:mgmt:~$ ping -c 3 10.0.10.1
+vrf-wrapper.sh: switching to vrf "default"; use '--no-vrf-switch' to disable
+PING 10.0.10.1 (10.0.10.1) 56(84) bytes of data.
+64 bytes from 10.0.10.1: icmp_seq=1 ttl=64 time=0.033 ms
+64 bytes from 10.0.10.1: icmp_seq=2 ttl=64 time=0.040 ms
+64 bytes from 10.0.10.1: icmp_seq=3 ttl=64 time=0.044 ms
+
+--- 10.0.10.1 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2042ms
+rtt min/avg/max/mdev = 0.033/0.039/0.044/0.004 ms
+cumulus@cumulus:mgmt:~$ ping -c 3 10.0.10.2
+vrf-wrapper.sh: switching to vrf "default"; use '--no-vrf-switch' to disable
+PING 10.0.10.2 (10.0.10.2) 56(84) bytes of data.
+64 bytes from 10.0.10.2: icmp_seq=1 ttl=64 time=0.030 ms
+64 bytes from 10.0.10.2: icmp_seq=2 ttl=64 time=0.041 ms
+64 bytes from 10.0.10.2: icmp_seq=3 ttl=64 time=0.041 ms
+
+--- 10.0.10.2 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2026ms
+rtt min/avg/max/mdev = 0.030/0.037/0.041/0.005 ms
+cumulus@cumulus:mgmt:~$ ping -c 3 10.0.10.3
+vrf-wrapper.sh: switching to vrf "default"; use '--no-vrf-switch' to disable
+PING 10.0.10.3 (10.0.10.3) 56(84) bytes of data.
+64 bytes from 10.0.10.3: icmp_seq=1 ttl=64 time=0.451 ms
+64 bytes from 10.0.10.3: icmp_seq=2 ttl=64 time=0.445 ms
+64 bytes from 10.0.10.3: icmp_seq=3 ttl=64 time=0.512 ms
+
+--- 10.0.10.3 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2029ms
+rtt min/avg/max/mdev = 0.445/0.469/0.512/0.030 ms
+cumulus@cumulus:mgmt:~$ ping -c 3 10.0.20.1
+vrf-wrapper.sh: switching to vrf "default"; use '--no-vrf-switch' to disable
+PING 10.0.20.1 (10.0.20.1) 56(84) bytes of data.
+64 bytes from 10.0.20.1: icmp_seq=1 ttl=64 time=0.032 ms
+64 bytes from 10.0.20.1: icmp_seq=2 ttl=64 time=0.068 ms
+64 bytes from 10.0.20.1: icmp_seq=3 ttl=64 time=0.040 ms
+
+--- 10.0.20.1 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2046ms
+rtt min/avg/max/mdev = 0.032/0.046/0.068/0.015 ms
+cumulus@cumulus:mgmt:~$ ping -c 3 10.0.20.2
+vrf-wrapper.sh: switching to vrf "default"; use '--no-vrf-switch' to disable
+PING 10.0.20.2 (10.0.20.2) 56(84) bytes of data.
+64 bytes from 10.0.20.2: icmp_seq=1 ttl=64 time=0.033 ms
+64 bytes from 10.0.20.2: icmp_seq=2 ttl=64 time=0.040 ms
+64 bytes from 10.0.20.2: icmp_seq=3 ttl=64 time=0.040 ms
+
+--- 10.0.20.2 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2029ms
+rtt min/avg/max/mdev = 0.033/0.037/0.040/0.003 ms
+cumulus@cumulus:mgmt:~$ ping -c 3 10.0.20.3
+vrf-wrapper.sh: switching to vrf "default"; use '--no-vrf-switch' to disable
+PING 10.0.20.3 (10.0.20.3) 56(84) bytes of data.
+64 bytes from 10.0.20.3: icmp_seq=1 ttl=64 time=0.399 ms
+64 bytes from 10.0.20.3: icmp_seq=2 ttl=64 time=0.474 ms
+64 bytes from 10.0.20.3: icmp_seq=3 ttl=64 time=0.272 ms
+
+--- 10.0.20.3 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2026ms
+rtt min/avg/max/mdev = 0.272/0.381/0.474/0.083 ms
+cumulus@cumulus:mgmt:~$ 

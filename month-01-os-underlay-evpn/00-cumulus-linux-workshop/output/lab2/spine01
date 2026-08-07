@@ -1,0 +1,56 @@
+cumulus@spine01:mgmt:~$ nv show system brief
+                   operational          applied
+-----------------  -------------------  -------
+uptime             1:53:46                     
+hostname           spine01              spine01
+fqdn               spine01                     
+product-name       Cumulus Linux               
+contact                                        
+location                                       
+dns                                            
+  domain                                       
+date-time                                      
+  local-time       2026-08-07 23:13:50         
+  timezone         Etc/UTC              Etc/UTC
+health                                         
+  status           Not OK                      
+version                                        
+  product-release  5.16.1                      
+global                                         
+  system-mac       48:b0:2d:00:00:25    auto   
+  anycast-mac      none                 none   
+cumulus@spine01:mgmt:~$ nv show interface lo link 
+nv show interface lo ipv4 address
+                         operational        applied
+-----------------------  -----------------  -------
+admin-status             up                        
+oper-status              unknown                   
+oper-status-last-change  Never                     
+protodown                disabled                  
+mac-address              00:00:00:00:00:00         
+mtu                      65536                     
+[flag]                   loopback                  
+[flag]                   up                        
+[flag]                   lower-up                  
+state                    up                        
+IPv4 Address     Address type
+---------------  ------------
+10.255.255.3/32  primary     
+127.0.0.1/8      primary     
+cumulus@spine01:mgmt:~$ nv show interface lo ipv4 address
+IPv4 Address     Address type
+---------------  ------------
+10.255.255.3/32  primary     
+127.0.0.1/8      primary     
+cumulus@spine01:mgmt:~$ nv show system date-time
+                           operational          applied
+-------------------------  -------------------  -------
+local-time                 2026-08-07 23:14:50         
+universal-time             2026-08-07 23:14:50         
+rtc-time                   2026-08-07 23:14:50         
+system-clock-synchronized  yes                         
+ntp-service                n/a                         
+rtc-in-local-tz            no                          
+timezone                   Etc/UTC              Etc/UTC
+unix-time                  1786144490.3921843          
+cumulus@spine01:mgmt:~$ 
