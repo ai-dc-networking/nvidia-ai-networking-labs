@@ -5,11 +5,11 @@
 This lab demonstrates core interface configuration, L2/L3 boundaries, VRR, and Inter-VLAN routing on Cumulus Linux using NVUE.
 
 # Key Tasks Completed
-- Hostname and Loopback address assignment
-- Bond/LAG configuration for switch interconnects
-- Bridge domain setup with Access/Trunk ports
-- SVI creation with VRR (Virtual Router Redundancy)
-- Inter-VLAN routing validation & MAC address learning verification
+* Hostname and Loopback address assignment
+* Bond/LAG configuration for switch interconnects
+* Bridge domain setup with Access/Trunk ports
+* SVI creation with VRR (Virtual Router Redundancy)
+* Inter-VLAN routing validation & MAC address learning verification
 
 # Architecture & Topology
 ![Topology](./Topology/Topology%2001.JPG)
