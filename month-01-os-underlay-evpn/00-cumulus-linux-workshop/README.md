@@ -1,11 +1,13 @@
 **Lab 1: Verifying Lab Connectivity & Setup**
 
 **Lab 2: Interface Configuration:**
+* Configure hostname
 * Configure Loopbacks
 * Bonds
 * Bridge and Access Ports
 * SVI and VRR, test connectivity
 * Verify MAC learned
+* Verify InterVLAN routing
 
 **Lab 3: BGP Unnumbered and VRF-lite Configuration**
 
