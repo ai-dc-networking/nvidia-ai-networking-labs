@@ -1,0 +1,42 @@
+cumulus@server01:mgmt:~$ ping 10.0.20.1
+vrf-wrapper.sh: switching to vrf "default"; use '--no-vrf-switch' to disable
+PING 10.0.20.1 (10.0.20.1) 56(84) bytes of data.
+64 bytes from 10.0.20.1: icmp_seq=1 ttl=64 time=0.873 ms
+64 bytes from 10.0.20.1: icmp_seq=2 ttl=64 time=0.485 ms
+^C
+--- 10.0.20.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 0.485/0.679/0.873/0.194 ms
+
+cumulus@server01:mgmt:~$ ping 10.0.20.10
+vrf-wrapper.sh: switching to vrf "default"; use '--no-vrf-switch' to disable
+PING 10.0.20.10 (10.0.20.10) 56(84) bytes of data.
+64 bytes from 10.0.20.10: icmp_seq=1 ttl=63 time=2.22 ms
+64 bytes from 10.0.20.10: icmp_seq=2 ttl=63 time=1.35 ms
+^C
+--- 10.0.20.10 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 1.347/1.785/2.223/0.438 ms
+
+cumulus@server01:mgmt:~$ ping 10.0.20.2
+vrf-wrapper.sh: switching to vrf "default"; use '--no-vrf-switch' to disable
+PING 10.0.20.2 (10.0.20.2) 56(84) bytes of data.
+64 bytes from 10.0.20.2: icmp_seq=1 ttl=64 time=0.509 ms
+64 bytes from 10.0.20.2: icmp_seq=2 ttl=64 time=0.510 ms
+^C
+--- 10.0.20.2 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev = 0.509/0.521/0.545/0.016 ms
+
+cumulus@server01:mgmt:~$ sudo vtysh -c "show ip route"
+[sudo] password for cumulus: 
+Codes: K - kernel route, C - connected, L - local, S - static,
+       R - RIP, O - OSPF, I - IS-IS, B - BGP, E - EIGRP, N - NHRP,
+       T - Table, A - Babel, D - SHARP, F - PBR, f - OpenFabric,
+       t - Table-Direct, Z - FRR,
+       > - selected route, * - FIB route, q - queued, r - rejected, b - backup
+       t - trapped, o - offload failure
+
+S>* 0.0.0.0/0 [1/0] via 10.0.10.1, swp1, weight 1, 01:44:22
+C>* 10.0.10.0/24 is directly connected, swp1, 01:44:22
+L>* 10.0.10.10/32 is directly connected, swp1, 01:44:22

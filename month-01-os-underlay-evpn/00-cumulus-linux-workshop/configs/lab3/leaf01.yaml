@@ -1,0 +1,23 @@
+router:
+  bgp:
+    state: enabled
+vrf:
+  default:
+    router:
+      bgp:
+        state: enabled
+        autonomous-system: 65101
+        router-id: 10.255.255.1
+        path-selection:
+          multipath:
+            aspath-ignore: enabled
+        address-family:
+          ipv4-unicast:
+            state: enabled
+            network:
+              10.0.10.0/24: {}
+              10.255.255.1/32: {}
+        neighbor:
+          swp30:
+            remote-as: external
+            type: unnumbered

@@ -1,4 +1,5 @@
 nv set router bgp state enabled
+nv set vrf default router bgp state enabled
 
 nv set vrf default router bgp autonomous-system 65201
 nv set vrf default router bgp neighbor swp29 remote-as external
@@ -7,7 +8,6 @@ nv set vrf default router bgp neighbor swp30 remote-as external
 nv set vrf default router bgp neighbor swp30 type unnumbered
 nv set vrf default router bgp path-selection multipath aspath-ignore enabled
 nv set vrf default router bgp router-id 10.255.255.3
-nv set vrf default router bgp state enabled
 
 nv set vrf default router bgp address-family ipv4-unicast network 10.255.255.3/32
 nv set vrf default router bgp address-family ipv4-unicast state enabled
