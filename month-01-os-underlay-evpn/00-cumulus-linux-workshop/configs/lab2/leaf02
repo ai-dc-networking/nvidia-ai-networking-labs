@@ -1,0 +1,27 @@
+nv set bridge domain br_default vlan 10,20
+nv set interface bond0 bond member swp31-32
+nv set interface bond0 bridge domain br_default
+nv set interface bond0 type bond
+
+nv set interface lo ipv4 address 10.255.255.2/32
+nv set interface lo type loopback
+
+nv set interface swp2 bridge domain br_default access 20
+nv set interface swp2 type swp
+
+nv set interface vlan10 ipv4 address 10.0.10.3/24
+nv set router vrr state enabled
+nv set interface vlan10 ipv4 vrr address 10.0.10.1/24
+nv set interface vlan10 ipv4 vrr mac-address 00:00:00:00:1a:10
+nv set interface vlan10 vlan 10
+
+nv set interface vlan10,20 ipv4 vrr state enabled
+nv set interface vlan10,20 type svi
+
+nv set interface vlan20 ipv4 address 10.0.20.3/24
+nv set interface vlan20 ipv4 vrr address 10.0.20.1/24
+nv set interface vlan20 ipv4 vrr mac-address 00:00:00:00:2a:20
+nv set interface vlan20 vlan 20
+
+nv set system config auto-save state enabled
+nv set system hostname leaf02
