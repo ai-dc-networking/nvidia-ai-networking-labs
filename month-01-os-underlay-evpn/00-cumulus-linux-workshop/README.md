@@ -31,15 +31,21 @@ This lab demonstrates core interface configuration, L2/L3 boundaries, VRR, and I
 * ping -c 3 10.0.20.1
 
 
-# Lab 3: BGP Unnumbered and VRF-lite Configuration 
-
+# Lab 3: BGP Unnumbered
 **Configure BGP Unnumbered**
 * Advertise Loopback and SVI Subnets
 * Quick Verify Connectivity with Servers
 
+# Lab 4: BGP-to-the-server 
+* Run dynamic routing protocol (BGP) in a format of CE to PE neighborship
+
+# Lab 5: BGP VRF-lite Configuration
 **VRF & Member Interfaces**
 * VRF BGP Configuration
 * Verify Routing Table
 * Verify Connectivity
 
 Appendix A: Enable SSH In Your Lab
+
+
+
