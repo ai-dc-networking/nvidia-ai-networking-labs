@@ -26,7 +26,7 @@ This lab demonstrates core interface configuration, L2/L3 boundaries, VRR, and I
 * nv show bridge domain br_default mac
 * nv show system date-time
 
-## Verify Inter-VLAN Ping & VRR
+# Verify Inter-VLAN Ping & VRR
 * ping -c 3 10.0.10.1
 * ping -c 3 10.0.20.1
 
@@ -37,7 +37,12 @@ This lab demonstrates core interface configuration, L2/L3 boundaries, VRR, and I
 * Quick Verify Connectivity with Servers
 
 # Lab 4: BGP-to-the-server 
-* Run dynamic routing protocol (BGP) in a format of CE to PE neighborship
+This lab demonstrates extending the L3 Fabric control plane down to compute servers using eBGP Unnumbered (BGP-ttH). By running eBGP directly on host interfaces, servers participate dynamically in routing, providing ECMP load balancing and fast failover without requiring traditional L2 bridge/VLAN configurations or FHRP protocols
+
+# Key Features
+- Routing Protocol: eBGP Unnumbered over IPv6 Link-Local addresses
+- Topology: Leaf-to-Server L3 Peering
+- Traffic Model: Direct host prefix advertisement (`/32` loopback redistribution)
 
 # Lab 5: BGP VRF-lite Configuration
 **VRF & Member Interfaces**
@@ -46,6 +51,3 @@ This lab demonstrates core interface configuration, L2/L3 boundaries, VRR, and I
 * Verify Connectivity
 
 Appendix A: Enable SSH In Your Lab
-
-
-
