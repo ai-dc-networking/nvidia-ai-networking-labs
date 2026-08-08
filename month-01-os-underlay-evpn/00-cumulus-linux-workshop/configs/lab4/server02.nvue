@@ -1,0 +1,20 @@
+nv set interface lo ipv4 address 192.168.20.1/32
+nv set interface lo type loopback
+nv set interface swp2 ipv4 address 10.0.20.10/24
+nv set interface swp2 link state up
+nv set interface swp2 type swp
+nv set interface vlan5 ipv4 address 10.20.20.1/24
+nv set interface vlan5 type svi
+nv set interface vlan5 vlan 5
+
+nv set router bgp state enabled
+nv set vrf default router bgp state enabled
+nv set vrf default router bgp autonomous-system 65401
+nv set vrf default router bgp neighbor swp2 remote-as external
+nv set vrf default router bgp neighbor swp2 type unnumbered
+nv set vrf default router bgp router-id 192.168.20.1
+
+nv set vrf default router bgp address-family ipv4-unicast network 10.20.20.0/24
+nv set vrf default router bgp address-family ipv4-unicast network 192.168.20.1/32
+nv set vrf default router bgp address-family ipv4-unicast redistribute connected state enabled
+nv set vrf default router bgp address-family ipv4-unicast state enabled

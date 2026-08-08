@@ -1,0 +1,43 @@
+interface:
+  lo:
+    ipv4:
+      address:
+        192.168.20.1/32: {}
+    type: loopback
+  swp2:
+    ipv4:
+      address:
+        10.0.20.10/24: {}
+    link:
+      state:
+        up: {}
+    type: swp
+  vlan5:
+    ipv4:
+      address:
+        10.20.20.1/24: {}
+    type: svi
+    vlan: 5
+router:
+  bgp:
+    state: enabled
+vrf:
+  default:
+    router:
+      bgp:
+        state: enabled
+        autonomous-system: 65401
+        router-id: 192.168.20.1
+        address-family:
+          ipv4-unicast:
+            state: enabled
+            network:
+              10.20.20.0/24: {}
+              192.168.20.1/32: {}
+            redistribute:
+              connected:
+                state: enabled
+        neighbor:
+          swp2:
+            remote-as: external
+            type: unnumbered
