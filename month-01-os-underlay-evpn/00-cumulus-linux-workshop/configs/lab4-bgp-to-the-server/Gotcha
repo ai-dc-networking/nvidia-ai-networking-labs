@@ -1,0 +1,34 @@
+**Root Causes**
+vlan5 SVI is Down (server02): In Cumulus Linux, an SVI (vlan5) will remain in a DOWN state unless at least one physical access port or trunk assigned to VLAN 5 is physically UP. If vlan5 is down, FRR considers 10.20.20.0/24 inactive and refuses to advertise it into BGP.
+
+Quick Workaround (Force Advertisement)
+If you want server02 to force-advertise 10.20.20.0/24 regardless of link state, create a dummy loopback route on server02:
+
+**Solution 1**: Fix the Interface State (Recommended)
+Assign a physical port to VLAN 5 and bring it up on server02 so vlan5 transitions to the UP state:
+
+**Solution 2**: Add a Static Null/Blackhole Route
+Add a static route on server02 so the kernel routing table contains 10.20.20.0/24, which satisfies the import check:
+nv set vrf default router static 10.20.20.0/24 blackhole == DONOT WORK
+nv set vrf default router static 10.20.20.0/24 via blackhole == DONOT WORK
+
+**Solution 3** Correct Commands to Complete the Setup
+Pointing the static to lo or set a blackhole/Null0 route
+*Option A*: Pointing via lo: 
+nv set vrf default router static 10.20.20.0/24 via lo
+*Option B*: Standard Null0/Blackhole in NVUE: 
+nv set vrf default router static 10.20.20.0/24 via Null0
+
+
+*nv set vrf default router bgp address-family ipv4-unicast network 10.10.10.0/24* IGP
+*nv set vrf default router bgp address-family ipv4-unicast redistribute static*   Incloplete
+
+
+
+# Apply the change
+nv config apply
+nv config apply
+
+sudo vtysh -c "clear ip bgp swp1 soft in"
+sudo vtysh -c "clear ip bgp *"
+sudo vtysh -c "show ip bgp ipv4 unicast 10.20.20.0/24" from the advertising router
