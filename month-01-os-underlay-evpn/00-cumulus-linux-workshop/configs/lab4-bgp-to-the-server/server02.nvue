@@ -1,13 +1,21 @@
+nv set bridge domain br_default vlan 5
+
+nv set interface eth0 type eth
+nv set interface eth0 vrf mgmt
+nv set interface eth0 ipv4 dhcp-client state enabled
+nv set interface eth0 ipv4 dhcp-client set-hostname enabled
+
 nv set interface lo type loopback
 nv set interface lo ipv4 address 192.168.20.1/32
 
 nv set interface swp2 type swp
 nv set interface swp2 link state up
 
-nv set bridge domain br_default vlan 5
 nv set interface vlan5 type svi
 nv set interface vlan5 vlan 5
 nv set interface vlan5 ipv4 address 10.20.20.1/24
+
+nv set system hostname server02
 
 nv set router bgp state enabled
 nv set vrf default router bgp state enabled
@@ -21,3 +29,7 @@ nv set vrf default router bgp address-family ipv4-unicast state enabled
 nv set vrf default router bgp address-family ipv4-unicast network 10.20.20.0/24
 nv set vrf default router bgp address-family ipv4-unicast network 192.168.20.1/32
 nv set vrf default router bgp address-family ipv4-unicast redistribute connected state enabled
+nv set vrf default router bgp address-family ipv4-unicast redistribute static state enabled
+
+nv set vrf default router static 10.20.20.0/24 address-family ipv4-unicast
+nv set vrf default router static 10.20.20.0/24 via lo type interface

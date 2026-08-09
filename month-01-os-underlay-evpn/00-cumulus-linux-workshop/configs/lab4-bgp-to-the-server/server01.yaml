@@ -2,21 +2,25 @@ bridge:
   domain:
     br_default:
       vlan:
-        '5': {}
+        5: {}
 interface:
+  eth0:
+    ipv4:
+      dhcp-client:
+        set-hostname: enabled
+        state: enabled
+    type: eth
+    vrf: mgmt
   lo:
     ipv4:
       address:
         192.168.255.1/32: {}
     type: loopback
   swp1:
-    ipv4:
-      address: {}
-    type: swp
-  swp1,vlan5:
     link:
       state:
         up: {}
+    type: swp
   vlan5:
     ipv4:
       address:
@@ -26,6 +30,8 @@ interface:
 router:
   bgp:
     state: enabled
+system:
+  hostname: server01
 vrf:
   default:
     router:
@@ -37,11 +43,20 @@ vrf:
           ipv4-unicast:
             state: enabled
             network:
+              10.10.10.0/24: {}
               192.168.255.1/32: {}
             redistribute:
               connected:
+                state: enabled
+              static:
                 state: enabled
         neighbor:
           swp1:
             remote-as: external
             type: unnumbered
+      static:
+        10.10.10.0/24:
+          address-family: ipv4-unicast
+          via:
+            lo:
+              type: interface

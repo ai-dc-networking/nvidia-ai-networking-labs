@@ -1,4 +1,4 @@
-**Root Causes**
+***Root Causes**
 vlan5 SVI is Down (server02): In Cumulus Linux, an SVI (vlan5) will remain in a DOWN state unless at least one physical access port or trunk assigned to VLAN 5 is physically UP. If vlan5 is down, FRR considers 10.20.20.0/24 inactive and refuses to advertise it into BGP.
 
 Quick Workaround (Force Advertisement)
@@ -20,9 +20,8 @@ nv set vrf default router static 10.20.20.0/24 via lo
 nv set vrf default router static 10.20.20.0/24 via Null0
 
 
-*nv set vrf default router bgp address-family ipv4-unicast network 10.10.10.0/24* IGP
-*nv set vrf default router bgp address-family ipv4-unicast redistribute static*   Incloplete
-
+*nv set vrf default router bgp address-family ipv4-unicast network 10.10.10.0/24* ==> IGP
+*nv set vrf default router bgp address-family ipv4-unicast redistribute static*   ==> Incloplete
 
 
 # Apply the change
