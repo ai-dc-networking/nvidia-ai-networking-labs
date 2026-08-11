@@ -1,0 +1,51 @@
+cumulus@leaf01:mgmt:~$ sudo vtysh -c "show ip bgp vrf RED summary"
+
+IPv4 Unicast Summary:
+BGP router identifier 10.255.255.1, local AS number 65101 VRF RED vrf-id 69
+BGP table version 2
+RIB entries 3, using 384 bytes of memory
+Peers 1, using 22 KiB of memory
+
+Neighbor           V         AS   MsgRcvd   MsgSent   TblVer  InQ OutQ  Up/Down State/PfxRcd   PfxSnt Desc
+spine01(swp51.100) 4      65201      4454      4455        2    0    0 03:42:28            1        2 FRRouting/10.0.3
+
+Total number of neighbors 1
+
+cumulus@leaf01:mgmt:~$ sudo vtysh -c "show ip bgp vrf RED ipv4 unicast"
+BGP table version is 2, local router ID is 10.255.255.1, vrf id 69
+Default local pref 100, local AS 65101
+Status codes:  s suppressed, d damped, h history, u unsorted, * valid, > best, = multipath, + multipath nhg, 
+               i internal, r RIB-failure, S Stale, R Removed
+Nexthop codes: @NNN nexthop's vrf id, < announce-nh-self
+Origin codes:  i - IGP, e - EGP, ? - incomplete
+RPKI validation codes: V valid, I invalid, N Not found
+
+    Network          Next Hop            Metric LocPrf Weight Path
+ *> 10.100.10.0/24   0.0.0.0(leaf01)          0         32768 i
+ *> 10.100.20.0/24   swp51.100                              0 65201 65102 i
+
+Displayed 2 routes and 2 total paths
+
+
+cumulus@leaf01:mgmt:~$ nv show vrf default router rib ipv4 route
+
+Flags - * - selected, q - queued, o - offloaded, i - installed, S - fib-
+selected, x - failed
+
+Route            Protocol   Distance  Uptime   NHGId  Metric  Flags
+---------------  ---------  --------  -------  -----  ------  -----
+10.255.255.1/32  connected  0         3:47:43  6      0       *Si  
+                 local      0         3:47:43  6      0       i    
+
+
+cumulus@leaf01:mgmt:~$ nv show vrf RED router rib ipv4 route
+
+Flags - * - selected, q - queued, o - offloaded, i - installed, S - fib-
+selected, x - failed
+
+Route           Protocol   Distance  Uptime   NHGId  Metric  Flags
+--------------  ---------  --------  -------  -----  ------  -----
+0.0.0.0/0       kernel     255       3:47:58  9      8192    *Si  
+10.100.10.0/24  connected  0         3:47:56  14     0       *Si  
+10.100.10.1/32  local      0         3:47:56  14     0       *Si  
+10.100.20.0/24  bgp        20        3:43:08  20     0       *Si  

@@ -1,0 +1,29 @@
+cumulus@cumulus:mgmt:~$ ping -c 3 10.100.20.10
+vrf-wrapper.sh: switching to vrf "default"; use '--no-vrf-switch' to disable
+PING 10.100.20.10 (10.100.20.10) 56(84) bytes of data.
+64 bytes from 10.100.20.10: icmp_seq=1 ttl=61 time=2.54 ms
+64 bytes from 10.100.20.10: icmp_seq=2 ttl=61 time=1.94 ms
+64 bytes from 10.100.20.10: icmp_seq=3 ttl=61 time=1.71 ms
+
+--- 10.100.20.10 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 1.710/2.064/2.539/0.348 ms
+cumulus@cumulus:mgmt:~$ ping -c 3 10.100.20.1
+vrf-wrapper.sh: switching to vrf "default"; use '--no-vrf-switch' to disable
+PING 10.100.20.1 (10.100.20.1) 56(84) bytes of data.
+64 bytes from 10.100.20.1: icmp_seq=1 ttl=62 time=1.34 ms
+64 bytes from 10.100.20.1: icmp_seq=2 ttl=62 time=1.15 ms
+64 bytes from 10.100.20.1: icmp_seq=3 ttl=62 time=1.29 ms
+
+--- 10.100.20.1 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 1.149/1.259/1.341/0.080 ms
+cumulus@cumulus:mgmt:~$ 
+
+cumulus@cumulus:mgmt:~$ traceroute 10.100.20.10
+vrf-wrapper.sh: switching to vrf "default"; use '--no-vrf-switch' to disable
+traceroute to 10.100.20.10 (10.100.20.10), 30 hops max, 60 byte packets
+ 1  10.100.10.1 (10.100.10.1)  0.553 ms  0.480 ms  0.451 ms
+ 2  192.0.0.8 (192.0.0.8)  1.443 ms  1.416 ms  1.395 ms
+ 3  10.100.20.1 (10.100.20.1)  1.370 ms  1.344 ms  1.307 ms^C
+ 
