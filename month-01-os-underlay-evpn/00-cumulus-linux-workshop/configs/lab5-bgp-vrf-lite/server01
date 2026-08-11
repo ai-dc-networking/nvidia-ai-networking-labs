@@ -1,0 +1,12 @@
+# Bring up physical interface swp1 facing Leaf01
+nv set interface swp1 type swp
+nv set interface swp1 link state up
+
+# Assign Host IP address
+nv set interface swp1 ipv4 address 10.100.10.10/24
+
+# Set default route to Leaf01's SVI Gateway inside VRF RED
+nv set vrf default router static 0.0.0.0/0 via 10.100.10.1
+
+# Apply configuration
+nv config apply
