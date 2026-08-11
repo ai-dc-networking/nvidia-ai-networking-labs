@@ -1,0 +1,45 @@
+# System Hostname & Loopback
+nv set system hostname leaf02
+nv set interface lo type loopback
+nv set interface lo ipv4 address 10.255.255.2/32
+
+# Physical Trunk Port swp51
+nv set interface swp51 type swp
+nv set interface swp51 link state up
+
+# Subinterface swp51.100 in VRF RED
+nv set interface swp51.100 base-interface swp51
+nv set interface swp51.100 type sub
+nv set interface swp51.100 vlan 100
+nv set interface swp51.100 vrf RED
+
+# Host Access Port & SVI Gateway inside VRF RED
+nv set bridge domain br_default vlan 100
+nv set interface swp4 type swp
+nv set interface swp4 link state up
+nv set interface swp4 bridge domain br_default access 100
+
+nv set interface vlan100 type svi
+nv set interface vlan100 vlan 100
+nv set interface vlan100 vrf RED
+nv set interface vlan100 ipv4 address 10.100.20.1/24
+
+# 1. GLOBAL / DEFAULT BGP INSTANCE (Base Process Initialization)
+nv set router bgp state enabled
+nv set vrf default router bgp autonomous-system 65102
+nv set vrf default router bgp router-id 10.255.255.2
+nv set vrf default router bgp state enabled
+
+# 2. VRF RED BGP INSTANCE (VRF-Lite Peering)
+nv set vrf RED table auto
+nv set vrf RED router bgp state enabled
+nv set vrf RED router bgp autonomous-system 65102
+nv set vrf RED router bgp router-id 10.255.255.2
+
+nv set vrf RED router bgp neighbor swp51.100 remote-as external
+nv set vrf RED router bgp neighbor swp51.100 type unnumbered
+
+nv set vrf RED router bgp address-family ipv4-unicast state enabled
+nv set vrf RED router bgp address-family ipv4-unicast network 10.100.20.0/24
+
+nv config apply
