@@ -1,0 +1,41 @@
+
+# System Hostname & Loopback
+nv set system hostname spine01
+nv set interface lo type loopback
+nv set interface lo ipv4 address 10.255.255.101/32
+
+# Physical Links
+nv set interface swp1-2 type swp
+nv set interface swp1-2 link state up
+
+# Subinterfaces in VRF RED
+nv set interface swp1.100 base-interface swp1
+nv set interface swp1.100 type sub
+nv set interface swp1.100 vlan 100
+nv set interface swp1.100 vrf RED
+
+nv set interface swp2.100 base-interface swp2
+nv set interface swp2.100 type sub
+nv set interface swp2.100 vlan 100
+nv set interface swp2.100 vrf RED
+
+# 1. GLOBAL / DEFAULT BGP INSTANCE (Base Process Initialization)
+nv set router bgp state enabled
+nv set vrf default router bgp autonomous-system 65201
+nv set vrf default router bgp router-id 10.255.255.101
+nv set vrf default router bgp state enabled
+
+# 2. VRF RED BGP INSTANCE (VRF-Lite Peering)
+nv set vrf RED table auto
+nv set vrf RED router bgp state enabled
+nv set vrf RED router bgp autonomous-system 65201
+nv set vrf RED router bgp router-id 10.255.255.101
+
+nv set vrf RED router bgp neighbor swp1.100 remote-as external
+nv set vrf RED router bgp neighbor swp1.100 type unnumbered
+nv set vrf RED router bgp neighbor swp2.100 remote-as external
+nv set vrf RED router bgp neighbor swp2.100 type unnumbered
+
+nv set vrf RED router bgp address-family ipv4-unicast state enabled
+
+nv config apply
