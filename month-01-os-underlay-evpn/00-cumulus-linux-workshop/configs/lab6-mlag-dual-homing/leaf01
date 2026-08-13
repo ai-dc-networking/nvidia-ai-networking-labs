@@ -1,0 +1,5 @@
+Leaf01 settings:
+nv set bridge domain br_default vlan 2-3
+nv set interface BOND_TO_SPINES bond member swp1-2
+nv set interface BOND_TO_SPINES bridge domain br_default
+nv set interface BOND_TO_SPINES type bond
