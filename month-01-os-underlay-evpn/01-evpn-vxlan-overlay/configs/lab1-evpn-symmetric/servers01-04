@@ -1,0 +1,35 @@
+server01
+nv set interface swp1 ipv4 address 172.16.10.18/24
+nv set interface swp1 link state up
+nv set interface swp1 type swp
+nv set system hostname host1
+nv set vrf default router static 0.0.0.0/0 address-family ipv4-unicast
+nv set vrf default router static 0.0.0.0/0 via 172.16.10.254 type ipv4-address
+
+server02
+nv set interface swp1 ipv4 address 172.16.20.18/24
+nv set interface swp1 link state up
+nv set interface swp1 type swp
+nv set system config auto-save state enabled
+nv set system hostname host2
+nv set vrf default router static 0.0.0.0/0 address-family ipv4-unicast
+nv set vrf default router static 0.0.0.0/0 via 172.16.20.254 type ipv4-address
+
+server03
+nv set interface swp1 ipv4 address 172.16.10.19/24
+nv set interface swp1 link state up
+nv set interface swp1 type swp
+nv set system hostname host3
+nv set system ntp
+nv set vrf default router static 0.0.0.0/0 address-family ipv4-unicast
+nv set vrf default router static 0.0.0.0/0 via 172.16.10.254 type ipv4-address
+
+server04
+nv set interface swp1 ipv4 address 172.16.20.19/24
+nv set interface swp1 link state up
+nv set interface swp1 type swp
+nv set system api state enabled
+nv set system config auto-save state enabled
+nv set system hostname host4
+nv set vrf default router static 0.0.0.0/0 address-family ipv4-unicast
+nv set vrf default router static 0.0.0.0/0 via 172.16.20.254 type ipv4-address

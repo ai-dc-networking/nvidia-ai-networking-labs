@@ -1,0 +1,81 @@
+leaf01
+
+Step 1 — Loopback and interfaces
+nv set system hostname leaf01
+nv set interface lo ipv4 address 172.16.100.1/32
+nv set interface lo type loopback
+
+nv show interface lo
+
+Step 2 — Underlay BGP
+
+nv set router bgp state enabled
+nv set vrf default router bgp autonomous-system 65001
+nv set vrf default router bgp router-id 172.16.100.1
+nv set vrf default router bgp state enabled
+
+nv set vrf default router bgp address-family ipv4-unicast network 172.16.100.1/32
+nv set vrf default router bgp address-family ipv4-unicast state enabled
+
+nv set vrf default router bgp neighbor swp51 address-family ipv4-unicast state enabled
+nv set vrf default router bgp neighbor swp51 remote-as external
+nv set vrf default router bgp neighbor swp51 type unnumbered
+
+nv set vrf default router bgp neighbor swp52 address-family ipv4-unicast state enabled
+nv set vrf default router bgp neighbor swp52 remote-as external
+nv set vrf default router bgp neighbor swp52 type unnumbered
+
+Identical structure on both leaves, just AS/router-id differ. Verify: sudo vtysh -c "show bgp summary" — both neighbors Established.
+
+Step 3 — EVPN + l2vpn-evpn AFI ⚠️ (the line that was missing on leaf02)
+
+nv set evpn state enabled
+nv set vrf default router bgp address-family l2vpn-evpn state enabled
+nv set vrf default router bgp neighbor swp51 address-family l2vpn-evpn state enabled
+nv set vrf default router bgp neighbor swp52 address-family l2vpn-evpn state enabled
+
+sudo vtysh -c "show bgp evpn summary"
+
+Step 4 — VXLAN tunnel endpoint (NVE)
+
+nv set nve vxlan source address auto
+nv set nve vxlan state enabled
+
+ip -d link show vxlan48 or nv show nve vxlan
+
+Step 5 — VLAN-to-VNI mapping and access ports
+nv set bridge domain br_default vlan 10 vni 10
+nv set bridge domain br_default vlan 20 vni 20
+nv set bridge domain br_default vlan 4001
+nv set interface swp1 bridge domain br_default access 10
+nv set interface swp1-2,51-52 type swp
+nv set interface swp1-2,51-52 link state up
+nv set interface swp2 bridge domain br_default access 20
+
+nv show bridge domain br_default mac-table
+
+Step 6 — SVIs with anycast gateway
+nv set interface vlan10 ipv4 address 172.16.10.254/24
+nv set interface vlan10 vlan 10
+nv set interface vlan10,20,4001 type svi
+nv set interface vlan10,20,4001 vrf RED
+
+nv set interface vlan20 ipv4 address 172.16.20.254/24
+nv set interface vlan20 vlan 20
+nv set interface vlan4001 vlan 4001
+
+Step 7 — L3VNI + VRF-to-EVPN route leaking
+nv set vrf RED evpn state enabled
+nv set vrf RED evpn vni 4001
+nv set vrf RED router bgp address-family ipv4-unicast redistribute connected state enabled
+nv set vrf RED router bgp address-family ipv4-unicast route-export to-evpn state enabled
+nv set vrf RED router bgp address-family ipv4-unicast state enabled
+nv set vrf RED router bgp autonomous-system 65001
+nv set vrf RED router bgp router-id 172.16.100.1
+nv set vrf RED router bgp state enabled
+nv set vrf RED table auto
+
+show bgp evpn route type macip
+
+Step 8 — Data plane test
+Nothing to configure — this is where ping 172.16.10.19 from host1, and tcpdump -i swp51 udp port 4789, come in.
