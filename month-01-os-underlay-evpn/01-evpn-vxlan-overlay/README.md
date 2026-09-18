@@ -15,7 +15,9 @@ Step 6 — SVIs with anycast gateway
 Step 7 — L3VNI + VRF-to-EVPN route leaking
 Step 8 — Data plane test
 
-# Mastery Plan of EVPN VXLAN 
+![](image.png)
+
+# Mastery Plan of EVPN VXLAN
 *Centralised, Symetric and Asymetric routing*
 Muscle memory on the baseline symmetric IRB config (what you've been building) needs to be automatic before layering complexity on top, because every one of those advanced scenarios is a variation on this same skeleton, not a different skeleton entirely.
 
